@@ -1,0 +1,29 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Brand Accent Palette -->
+    <Color x:Key="ColorElectricBlue">#3987FF</Color>
+    <Color x:Key="ColorCyan">#20D9F3</Color>
+    <Color x:Key="ColorIndigo">#635BFF</Color>
+    <Color x:Key="ColorViolet">#A855F7</Color>
+    <Color x:Key="ColorMagenta">#EC4899</Color>
+    <Color x:Key="ColorEmerald">#20C997</Color>
+    <Color x:Key="ColorCoral">#FF6B81</Color>
+    <Color x:Key="ColorAmber">#FFB547</Color>
+
+    <!-- Solid Brushes -->
+    <SolidColorBrush x:Key="BrushElectricBlue" Color="{StaticResource ColorElectricBlue}" />
+    <SolidColorBrush x:Key="BrushCyan" Color="{StaticResource ColorCyan}" />
+    <SolidColorBrush x:Key="BrushIndigo" Color="{StaticResource ColorIndigo}" />
+    <SolidColorBrush x:Key="BrushViolet" Color="{StaticResource ColorViolet}" />
+    <SolidColorBrush x:Key="BrushMagenta" Color="{StaticResource ColorMagenta}" />
+    <SolidColorBrush x:Key="BrushEmerald" Color="{StaticResource ColorEmerald}" />
+    <SolidColorBrush x:Key="BrushCoral" Color="{StaticResource ColorCoral}" />
+    <SolidColorBrush x:Key="BrushAmber" Color="{StaticResource ColorAmber}" />
+
+    <!-- Utility Brushes -->
+    <SolidColorBrush x:Key="BrushWhite" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="BrushBlack" Color="#000000" />
+    <SolidColorBrush x:Key="BrushTransparent" Color="Transparent" />
+
+</ResourceDictionary>

@@ -1,0 +1,26 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Dark Theme Surface Brushes -->
+    <SolidColorBrush x:Key="BrushBackground" Color="#0B1020" />
+    <SolidColorBrush x:Key="BrushSecondaryBackground" Color="#111A2E" />
+    <SolidColorBrush x:Key="BrushElevatedSurface" Color="#17233B" />
+    <SolidColorBrush x:Key="BrushCardSurface" Color="#1B2944" />
+    <SolidColorBrush x:Key="BrushHoverSurface" Color="#233454" />
+    <SolidColorBrush x:Key="BrushActiveSurface" Color="#2A3E66" />
+    <SolidColorBrush x:Key="BrushInputBackground" Color="#141F35" />
+    <SolidColorBrush x:Key="BrushInputBorder" Color="#2E4166" />
+
+    <!-- Text Brushes -->
+    <SolidColorBrush x:Key="BrushPrimaryText" Color="#F4F7FF" />
+    <SolidColorBrush x:Key="BrushSecondaryText" Color="#A5B4D0" />
+    <SolidColorBrush x:Key="BrushMutedText" Color="#6C7D9C" />
+
+    <!-- Borders and Dividers -->
+    <SolidColorBrush x:Key="BrushBorder" Color="#2E4166" />
+    <SolidColorBrush x:Key="BrushSubtleBorder" Color="#1E2C46" />
+
+    <!-- Shadow Color -->
+    <Color x:Key="ColorShadow">#000000</Color>
+
+</ResourceDictionary>

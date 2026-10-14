@@ -1,0 +1,217 @@
+<Window x:Class="Sortexa.App.Views.SplashScreenWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sortexa"
+        Width="580" Height="360"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        Topmost="True">
+
+    <Window.Resources>
+        <!-- Storyboard matching the exact sequence required in Part 5 -->
+        <Storyboard x:Key="StoryboardSplashSequence">
+            <!-- 1. Ambient Glow Reveal -->
+            <DoubleAnimation Storyboard.TargetName="AmbientGlow"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="0.7"
+                             Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+
+            <!-- 2. Logo Scale and Opacity -->
+            <DoubleAnimation Storyboard.TargetName="LogoContainer"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="1.0"
+                             BeginTime="0:0:0.2"
+                             Duration="0:0:0.7">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="LogoScale"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="0.75" To="1.0"
+                             BeginTime="0:0:0.2"
+                             Duration="0:0:0.7">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase Amplitude="0.3" EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="LogoScale"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="0.75" To="1.0"
+                             BeginTime="0:0:0.2"
+                             Duration="0:0:0.7">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase Amplitude="0.3" EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+
+            <!-- 3. Light Sweep across Logo -->
+            <DoubleAnimation Storyboard.TargetName="LightSweepTransform"
+                             Storyboard.TargetProperty="X"
+                             From="-120" To="200"
+                             BeginTime="0:0:0.7"
+                             Duration="0:0:0.8">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="LightSweep"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="0.8"
+                             BeginTime="0:0:0.7"
+                             Duration="0:0:0.2" AutoReverse="True" />
+
+            <!-- 4. Wordmark Appears -->
+            <DoubleAnimation Storyboard.TargetName="WordmarkPanel"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="1.0"
+                             BeginTime="0:0:0.8"
+                             Duration="0:0:0.5">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+
+            <!-- 5. Tagline Appears -->
+            <DoubleAnimation Storyboard.TargetName="TaglineText"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="1.0"
+                             BeginTime="0:0:1.1"
+                             Duration="0:0:0.4" />
+
+            <!-- 6. Developer Attribution Appears -->
+            <DoubleAnimation Storyboard.TargetName="AttributionPanel"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="1.0"
+                             BeginTime="0:0:1.3"
+                             Duration="0:0:0.4" />
+
+            <!-- Progress Bar Animation -->
+            <DoubleAnimation Storyboard.TargetName="SplashProgressBar"
+                             Storyboard.TargetProperty="Value"
+                             From="0" To="100"
+                             BeginTime="0:0:0.2"
+                             Duration="0:0:1.7">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
+
+    <Border Background="#0B1020"
+            BorderBrush="{StaticResource BrushGlassBorderGradient}"
+            BorderThickness="1"
+            CornerRadius="16">
+        <Border.Effect>
+            <DropShadowEffect Color="#000000" BlurRadius="30" Opacity="0.6" ShadowDepth="10" />
+        </Border.Effect>
+
+        <Grid>
+            <!-- Radial Ambient Glow -->
+            <Ellipse x:Name="AmbientGlow"
+                     Width="460" Height="260"
+                     Fill="{StaticResource BrushAmbientSplashGlow}"
+                     Opacity="0.0"
+                     IsHitTestVisible="False" />
+
+            <!-- Main Content Stack -->
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <!-- Logo with Light Sweep Clip -->
+                <Grid x:Name="LogoContainer"
+                      Width="80" Height="80"
+                      HorizontalAlignment="Center"
+                      Opacity="0.0">
+                    <Grid.RenderTransform>
+                        <ScaleTransform x:Name="LogoScale" ScaleX="0.75" ScaleY="0.75" CenterX="40" CenterY="40" />
+                    </Grid.RenderTransform>
+
+                    <!-- Base Logo Path -->
+                    <Path Data="{StaticResource GeoSortexaLogo}"
+                          Fill="{StaticResource BrushPrimaryGradient}"
+                          Stretch="Uniform"
+                          Width="64" Height="64"
+                          HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Path.Effect>
+                            <DropShadowEffect Color="#3987FF" BlurRadius="20" Opacity="0.55" ShadowDepth="0" />
+                        </Path.Effect>
+                    </Path>
+
+                    <!-- Light Sweep Beam Overlay -->
+                    <Rectangle x:Name="LightSweep"
+                               Width="30" Height="80"
+                               Opacity="0.0"
+                               HorizontalAlignment="Left">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#00FFFFFF" Offset="0.0" />
+                                <GradientStop Color="#B0FFFFFF" Offset="0.5" />
+                                <GradientStop Color="#00FFFFFF" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                        <Rectangle.RenderTransform>
+                            <TranslateTransform x:Name="LightSweepTransform" X="-120" />
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                </Grid>
+
+                <!-- Wordmark -->
+                <StackPanel x:Name="WordmarkPanel" Margin="0,16,0,0" Opacity="0.0" HorizontalAlignment="Center">
+                    <TextBlock Text="SORTEXA"
+                               FontFamily="{StaticResource FontDisplay}"
+                               FontSize="32"
+                               FontWeight="Bold"
+                               Foreground="#F4F7FF"
+                               HorizontalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#3987FF" BlurRadius="14" Opacity="0.4" ShadowDepth="0" />
+                        </TextBlock.Effect>
+                    </TextBlock>
+                </StackPanel>
+
+                <!-- Tagline -->
+                <TextBlock x:Name="TaglineText"
+                           Text="Your files. Organized beautifully."
+                           FontFamily="{StaticResource FontBody}"
+                           FontSize="14"
+                           FontWeight="Medium"
+                           Foreground="#A5B4D0"
+                           HorizontalAlignment="Center"
+                           Margin="0,6,0,0"
+                           Opacity="0.0" />
+
+                <!-- Developer Attribution -->
+                <StackPanel x:Name="AttributionPanel"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,14,0,0"
+                            Opacity="0.0">
+                    <TextBlock Text="Made with ❤️ - by Nikshay Kumar"
+                               FontFamily="{StaticResource FontBody}"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="#20D9F3" />
+                </StackPanel>
+
+            </StackPanel>
+
+            <!-- Bottom Progress Track -->
+            <ProgressBar x:Name="SplashProgressBar"
+                         VerticalAlignment="Bottom"
+                         Height="4"
+                         Background="#111A2E"
+                         Foreground="{StaticResource BrushPrimaryGradient}"
+                         BorderThickness="0"
+                         Minimum="0" Maximum="100" Value="0"
+                         Margin="20,0,20,16" />
+        </Grid>
+    </Border>
+</Window>

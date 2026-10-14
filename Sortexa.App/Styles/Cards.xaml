@@ -1,0 +1,74 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Standard Modern Card -->
+    <Style x:Key="StyleCard" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource BrushCardSurface}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BrushBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{DynamicResource ColorShadow}" BlurRadius="16" Opacity="0.18" ShadowDepth="4" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Elevated Surface Card -->
+    <Style x:Key="StyleElevatedCard" TargetType="Border" BasedOn="{StaticResource StyleCard}">
+        <Setter Property="Background" Value="{DynamicResource BrushElevatedSurface}" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{DynamicResource ColorShadow}" BlurRadius="22" Opacity="0.25" ShadowDepth="6" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Glassmorphic Card (Translucent look with gradient stroke) -->
+    <Style x:Key="StyleGlassCard" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource BrushCardSurface}" />
+        <Setter Property="BorderBrush" Value="{StaticResource BrushGlassBorderGradient}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Padding" Value="24" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{DynamicResource ColorShadow}" BlurRadius="20" Opacity="0.2" ShadowDepth="4" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Hero Card Banner -->
+    <Style x:Key="StyleHeroCard" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource BrushElevatedSurface}" />
+        <Setter Property="BorderBrush" Value="{StaticResource BrushGlassBorderGradient}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="Padding" Value="28" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#3987FF" BlurRadius="24" Opacity="0.15" ShadowDepth="4" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Metric / Stat Badge Card -->
+    <Style x:Key="StyleStatCard" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource BrushCardSurface}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BrushSubtleBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="16,14" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{DynamicResource ColorShadow}" BlurRadius="10" Opacity="0.12" ShadowDepth="2" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

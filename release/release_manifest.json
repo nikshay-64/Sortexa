@@ -1,0 +1,33 @@
+{
+  "productName": "Sortexa",
+  "version": "1.0.0",
+  "releaseDate": "2026-10-14",
+  "developer": "Nikshay Kumar",
+  "publisher": "Nikshay Kumar",
+  "targetOS": "Windows 10 / Windows 11 (x64)",
+  "framework": ".NET 10 (net10.0-windows10.0.19041.0)",
+  "architecture": "win-x64",
+  "artifacts": [
+    {
+      "fileName": "Sortexa.exe",
+      "description": "Self-contained, single-file Windows x64 application executable",
+      "fileSizeBytes": 140278057,
+      "sha256": "5f14dc97cfd6f5af5324455321570b108cec763bbd45a87678192f941285f12e"
+    },
+    {
+      "fileName": "Sortexa-Setup.exe",
+      "description": "Branded Inno Setup per-user installer for Windows x64",
+      "fileSizeBytes": 44044579,
+      "sha256": "cd21822c9fdf692c6b331687f3771d21ba8dcb23e57d71ccb07b7a12fd3ffd5f"
+    }
+  ],
+  "buildMetadata": {
+    "configuration": "Release",
+    "publishTrimmed": false,
+    "singleFile": true,
+    "selfContained": true,
+    "innoSetupVersion": "6.7.3",
+    "compiler": "ISCC.exe",
+    "testPassRate": "100% (66/66 tests passed)"
+  }
+}

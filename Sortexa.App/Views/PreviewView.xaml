@@ -1,0 +1,167 @@
+<UserControl x:Class="Sortexa.App.Views.PreviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:Sortexa.App.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="750" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <converters:StatusColorConverter x:Key="ConvStatusColor" />
+        <converters:BytesFormattedConverter x:Key="ConvBytes" />
+    </UserControl.Resources>
+
+    <Grid Margin="32,24,32,32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <Button Style="{StaticResource StyleGhostButton}"
+                    Command="{Binding BackCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="0,0,0,8"
+                    Padding="4,4">
+                <StackPanel Orientation="Horizontal">
+                    <Path Data="{StaticResource GeoArrowLeft}" Fill="{DynamicResource BrushSecondaryText}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,6,0" VerticalAlignment="Center" />
+                    <TextBlock Text="Back to Strategy Configuration" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+            <TextBlock Text="Pre-Flight Plan Preview" Style="{StaticResource StyleHeaderLarge}" Margin="0,0,0,6" />
+            <TextBlock Text="Review the proposed file organization. No files will be moved until you confirm below."
+                       Style="{StaticResource StyleSubtitle}" />
+        </StackPanel>
+
+        <!-- Summary Metrics Bar -->
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource StyleStatCard}" Margin="0,0,12,0">
+                <StackPanel>
+                    <TextBlock Text="Total Examined" Style="{StaticResource StyleCaption}" />
+                    <TextBlock Text="{Binding TotalFiles}" Style="{StaticResource StyleHeaderMedium}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource StyleStatCard}" Margin="0,0,12,0">
+                <StackPanel>
+                    <TextBlock Text="Eligible to Organize" Style="{StaticResource StyleCaption}" />
+                    <TextBlock Text="{Binding EligibleCount}" Style="{StaticResource StyleHeaderMedium}" Foreground="{StaticResource BrushEmerald}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource StyleStatCard}" Margin="0,0,12,0">
+                <StackPanel>
+                    <TextBlock Text="Skipped / Unchanged" Style="{StaticResource StyleCaption}" />
+                    <TextBlock Text="{Binding SkippedCount}" Style="{StaticResource StyleHeaderMedium}" Foreground="{StaticResource BrushAmber}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="3" Style="{StaticResource StyleStatCard}">
+                <StackPanel>
+                    <TextBlock Text="Eligible Volume" Style="{StaticResource StyleCaption}" />
+                    <TextBlock Text="{Binding TotalSizeFormatted}" Style="{StaticResource StyleHeaderMedium}" Foreground="{StaticResource BrushCyan}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Search and Table Container -->
+        <Border Grid.Row="2" Style="{StaticResource StyleCard}" Padding="16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Search Input Bar -->
+                <Grid Grid.Row="0" Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="320" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0"
+                             Text="{Binding SearchFilter, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource StyleTextBox}" />
+                    <TextBlock Grid.Column="0"
+                               Text="Filter proposed files..."
+                               Style="{StaticResource StyleCaption}"
+                               Foreground="{DynamicResource BrushMutedText}"
+                               Margin="14,0,0,0"
+                               VerticalAlignment="Center"
+                               IsHitTestVisible="False"
+                               Visibility="{Binding SearchFilter.Length, Converter={x:Static converters:EmptyStringToVisibilityConverter.Instance}, FallbackValue=Visible}" />
+
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding DisplayedOperations.Count, StringFormat='Showing {0} operations'}"
+                               Style="{StaticResource StyleCaption}"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center" />
+                </Grid>
+
+                <!-- Operations DataGrid -->
+                <DataGrid Grid.Row="1"
+                          ItemsSource="{Binding DisplayedOperations}"
+                          Style="{StaticResource StyleDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="File Name" Binding="{Binding OriginalFileName}" Width="220" />
+                        <DataGridTextColumn Header="Category / Rule" Binding="{Binding MatchedCategoryOrRule}" Width="160" />
+                        <DataGridTextColumn Header="Destination Path" Binding="{Binding ProposedDestinationPath}" Width="*" />
+                        <DataGridTemplateColumn Header="Status" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="4" Padding="6,2" HorizontalAlignment="Left"
+                                            Background="{Binding Status, Converter={StaticResource ConvStatusColor}}">
+                                        <TextBlock Text="{Binding Status}" Foreground="White" FontSize="11" FontWeight="Bold" />
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Size" Binding="{Binding FileSizeBytes, Converter={StaticResource ConvBytes}}" Width="80" />
+                        <DataGridTextColumn Header="Details / Warning" Binding="{Binding SkipOrWarningReason}" Width="160" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <!-- Bottom Action Bar -->
+        <Border Grid.Row="3" Style="{StaticResource StyleCard}" Padding="16,12" Margin="0,16,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Style="{StaticResource StyleSecondaryButton}" Command="{Binding CancelCommand}">
+                    <TextBlock Text="Cancel" />
+                </Button>
+
+                <TextBlock Grid.Column="1"
+                           Text="Explicit confirmation is required before any filesystem modifications occur."
+                           Style="{StaticResource StyleCaption}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+
+                <Button Grid.Column="2" Style="{StaticResource StylePrimaryButton}" Command="{Binding ConfirmAndOrganizeCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="{StaticResource GeoPlay}" Fill="White" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" VerticalAlignment="Center" />
+                        <TextBlock Text="Confirm &amp; Organize Files" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>

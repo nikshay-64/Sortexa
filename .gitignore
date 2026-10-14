@@ -1,0 +1,13 @@
+.vs/
+**/bin/
+**/obj/
+TestResults/
+*.user
+*.suo
+*.log
+.env
+.env.*
+!.env.example
+publish/
+release/*.exe
+*.pdb

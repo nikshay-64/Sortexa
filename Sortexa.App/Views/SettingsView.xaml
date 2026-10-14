@@ -1,0 +1,175 @@
+<UserControl x:Class="Sortexa.App.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:Sortexa.App.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="750" d:DesignWidth="900">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="32,24,32,32">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Settings &amp; Preferences" Style="{StaticResource StyleHeaderLarge}" Margin="0,0,0,6" />
+                    <TextBlock Text="Customize application appearance, organization defaults, and safety rules." Style="{StaticResource StyleSubtitle}" />
+                </StackPanel>
+
+                <Button Grid.Column="1" Style="{StaticResource StylePrimaryButton}" Command="{Binding SaveSettingsCommand}" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="{StaticResource GeoSave}" Fill="White" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" VerticalAlignment="Center" />
+                        <TextBlock Text="Save Preferences" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!-- Settings Sections -->
+            <StackPanel Grid.Row="1">
+
+                <!-- Theme Selection Card -->
+                <Border Style="{StaticResource StyleCard}" Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="250" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Application Theme" Style="{StaticResource StyleBody}" FontWeight="SemiBold" Margin="0,0,0,2" />
+                            <TextBlock Text="Select between Dark theme, Light theme, or automatically track your Windows system setting." Style="{StaticResource StyleCaption}" />
+                        </StackPanel>
+
+                        <ComboBox Grid.Column="1"
+                                  ItemsSource="{Binding AvailableThemes}"
+                                  SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
+                                  Style="{StaticResource StyleComboBox}"
+                                  VerticalAlignment="Center">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={x:Static converters:SettingsDisplayConverter.Instance}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
+                <!-- Preferred Method Card -->
+                <Border Style="{StaticResource StyleCard}" Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="250" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Preferred Organization Method" Style="{StaticResource StyleBody}" FontWeight="SemiBold" Margin="0,0,0,2" />
+                            <TextBlock Text="The strategy selected by default when starting a new folder organization." Style="{StaticResource StyleCaption}" />
+                        </StackPanel>
+
+                        <ComboBox Grid.Column="1"
+                                  ItemsSource="{Binding AvailableMethods}"
+                                  SelectedItem="{Binding PreferredMethod, Mode=TwoWay}"
+                                  Style="{StaticResource StyleComboBox}"
+                                  VerticalAlignment="Center">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={x:Static converters:SettingsDisplayConverter.Instance}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
+                <!-- Duplicate File Policy Card -->
+                <Border Style="{StaticResource StyleCard}" Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="250" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Duplicate Filename Resolution" Style="{StaticResource StyleBody}" FontWeight="SemiBold" Margin="0,0,0,2" />
+                            <TextBlock Text="Never overwrite: rename with counter (e.g. file (1).ext) or safely skip duplicate." Style="{StaticResource StyleCaption}" />
+                        </StackPanel>
+
+                        <ComboBox Grid.Column="1"
+                                  ItemsSource="{Binding AvailablePolicies}"
+                                  SelectedItem="{Binding DuplicatePolicy, Mode=TwoWay}"
+                                  Style="{StaticResource StyleComboBox}"
+                                  VerticalAlignment="Center">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={x:Static converters:SettingsDisplayConverter.Instance}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
+                <!-- Fallback Category Name -->
+                <Border Style="{StaticResource StyleCard}" Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="220" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Default Unmatched Subfolder" Style="{StaticResource StyleBody}" FontWeight="SemiBold" Margin="0,0,0,2" />
+                            <TextBlock Text="Name of the subfolder where unknown or unclassified files are placed." Style="{StaticResource StyleCaption}" />
+                        </StackPanel>
+
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding FallbackCategoryName, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource StyleTextBox}"
+                                 VerticalAlignment="Center" />
+                    </Grid>
+                </Border>
+
+                <!-- Diagnostics and Logging Card -->
+                <Border Style="{StaticResource StyleCard}" Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Diagnostic Logging" Style="{StaticResource StyleBody}" FontWeight="SemiBold" Margin="0,0,0,2" />
+                            <TextBlock Text="Record safe diagnostic events to local log files (sensitive tokens and paths are automatically redacted)." Style="{StaticResource StyleCaption}" />
+                            <CheckBox Content="Enable logging to %LocalAppData%\Sortexa\logs"
+                                      IsChecked="{Binding EnableLogging, Mode=TwoWay}"
+                                      Style="{StaticResource StyleCheckBox}"
+                                      Margin="0,8,0,0" />
+                        </StackPanel>
+
+                        <Button Grid.Column="1" Style="{StaticResource StyleSecondaryButton}" Command="{Binding OpenLogsFolderCommand}" VerticalAlignment="Center" Margin="16,0,0,0">
+                            <TextBlock Text="Open Logs Folder" />
+                        </Button>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+
+            <!-- Status Banner -->
+            <Border Grid.Row="2" Background="{DynamicResource BrushHoverSurface}" CornerRadius="6" Padding="12,8" Margin="0,12,0,0"
+                    Visibility="{Binding StatusMessage, Converter={StaticResource StringToVis}}">
+                <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource StyleBodySecondary}" Foreground="{StaticResource BrushCyan}" />
+            </Border>
+
+        </Grid>
+    </ScrollViewer>
+</UserControl>

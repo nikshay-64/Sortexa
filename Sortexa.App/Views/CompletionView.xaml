@@ -1,0 +1,108 @@
+<UserControl x:Class="Sortexa.App.Views.CompletionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="900">
+
+    <Grid Margin="32,48,32,32">
+        <!-- Centered Completion Report Card -->
+        <Border Style="{StaticResource StyleGlassCard}"
+                MaxWidth="720"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Padding="40">
+            <StackPanel HorizontalAlignment="Center">
+
+                <!-- Status Emblem Badge -->
+                <Border Width="72" Height="72" CornerRadius="36" Background="{Binding StatusBadgeColor}" HorizontalAlignment="Center" Margin="0,0,0,20">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#20C997" BlurRadius="24" Opacity="0.4" ShadowDepth="0" />
+                    </Border.Effect>
+                    <Path Data="{StaticResource GeoCheckCircle}" Fill="White" Width="36" Height="36" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+
+                <!-- Status Heading -->
+                <TextBlock Text="{Binding StatusTitle}" Style="{StaticResource StyleHeaderLarge}" HorizontalAlignment="Center" Margin="0,0,0,8" />
+                <TextBlock Text="{Binding StatusSubtitle}" Style="{StaticResource StyleSubtitle}" HorizontalAlignment="Center" Margin="0,0,0,28" TextAlignment="Center" MaxWidth="560" />
+
+                <!-- Operation Metrics Grid -->
+                <Grid Margin="0,0,0,32" Width="580">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Style="{StaticResource StyleStatCard}" Margin="0,0,8,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Examined" Style="{StaticResource StyleCaption}" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding ExaminedCount}" Style="{StaticResource StyleHeaderSmall}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Style="{StaticResource StyleStatCard}" Margin="0,0,8,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Moved" Style="{StaticResource StyleCaption}" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding MovedCount}" Style="{StaticResource StyleHeaderSmall}" Foreground="{StaticResource BrushEmerald}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" Style="{StaticResource StyleStatCard}" Margin="0,0,8,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Skipped" Style="{StaticResource StyleCaption}" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding SkippedCount}" Style="{StaticResource StyleHeaderSmall}" Foreground="{StaticResource BrushAmber}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="3" Style="{StaticResource StyleStatCard}" Margin="0,0,8,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Failed" Style="{StaticResource StyleCaption}" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding FailedCount}" Style="{StaticResource StyleHeaderSmall}" Foreground="{StaticResource BrushCoral}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="4" Style="{StaticResource StyleStatCard}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Duration" Style="{StaticResource StyleCaption}" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding DurationFormatted}" Style="{StaticResource StyleHeaderSmall}" Foreground="{StaticResource BrushCyan}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Undo Status Feedback Message -->
+                <TextBlock Text="{Binding UndoStatusText}"
+                           Style="{StaticResource StyleBody}"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource BrushCyan}"
+                           HorizontalAlignment="Center"
+                           Visibility="{Binding UndoStatusText, Converter={StaticResource StringToVis}}" />
+
+                <!-- Action Buttons Cluster -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Style="{StaticResource StylePrimaryButton}" Command="{Binding OpenDestinationCommand}" Margin="0,0,12,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Data="{StaticResource GeoFolder}" Fill="White" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" VerticalAlignment="Center" />
+                            <TextBlock Text="Open Destination Folder" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource StyleSecondaryButton}" Command="{Binding UndoCommand}" Margin="0,0,12,0" IsEnabled="{Binding CanUndo}">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Data="{StaticResource GeoUndo}" Fill="{DynamicResource BrushPrimaryText}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" VerticalAlignment="Center" />
+                            <TextBlock Text="Undo Operation" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource StyleGhostButton}" Command="{Binding ReturnDashboardCommand}">
+                        <TextBlock Text="Return to Dashboard" VerticalAlignment="Center" />
+                    </Button>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
